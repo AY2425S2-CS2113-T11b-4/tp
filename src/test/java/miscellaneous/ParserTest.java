@@ -99,7 +99,7 @@ class ParserTest {
         String input = "add-patient n/John Doe ic/ dob/12-12-1999 g/M " +
                 "p/98765432 a/123 Main Street h/Diabetes, Hypertension";
 
-        assertThrows(InvalidInputFormatException.class, () -> Parser.parseDeleteAppointment(input));
+        assertThrows(InvalidInputFormatException.class, () -> Parser.parse(input));
     }
 
     @Test
@@ -147,8 +147,7 @@ class ParserTest {
                 Parser.parseStoreHistory("store-history n/John Doe h/Allergic to nuts"));
         assertThrows(InvalidInputFormatException.class, () ->
                 Parser.parseStoreHistory("store-history n/John Doe ic/S1234567D"));
-    }
-
+}
 
     @Test
     void parse_addAppointmentCommand_expectAddAppointmentCommand() throws InvalidInputFormatException,

@@ -37,7 +37,7 @@ class AddAppointmentCommandTest {
 
     @Test
     void execute_validAppointment_expectAppointmentAdded() throws Exception {
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+        Patient patient = new Patient("S1234567D", "Billy", "01-10-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         new AddPatientCommand(patient).execute(manager, ui);
 

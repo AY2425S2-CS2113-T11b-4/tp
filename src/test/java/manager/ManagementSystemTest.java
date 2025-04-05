@@ -1,9 +1,6 @@
 package manager;
 
-import exception.AppointmentClashException;
-import exception.DuplicatePatientIDException;
-import exception.PatientNotFoundException;
-import exception.UnloadedStorageException;
+import exception.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
@@ -40,12 +37,12 @@ class ManagementSystemTest {
     }
 
     @Test
-    void addPatient_validInput_expectPatientAdded() throws DuplicatePatientIDException, UnloadedStorageException {
+    void addPatient_validInput_expectPatientAdded() throws DuplicatePatientIDException, UnloadedStorageException, InvalidInputFormatException {
         List<Patient> emptyListPatient = new ArrayList<>();
         List<Appointment> emptyListAppoint = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(emptyListPatient, emptyListAppoint);
 
-        Patient patient = new Patient("S1234567A", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>());
 
         manager.addPatient(patient);
@@ -55,15 +52,15 @@ class ManagementSystemTest {
     }
 
     @Test
-    void addPatient_duplicateId_expectExceptionThrown() throws DuplicatePatientIDException, UnloadedStorageException {
+    void addPatient_duplicateId_expectExceptionThrown() throws DuplicatePatientIDException, UnloadedStorageException, InvalidInputFormatException {
         List<Patient> existing = new ArrayList<>();
-        Patient patient = new Patient("S1234567A", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>());
         existing.add(patient);
 
         ManagementSystem manager = new ManagementSystem(existing, new ArrayList<>());
 
-        Patient duplicate = new Patient("S1234567A", "Jane Smith", "1992-02-02",
+        Patient duplicate = new Patient("S1234567A", "Jane Smith", "02-02-1992",
                 "F", "456 Sample Rd", "90000000", new ArrayList<>());
 
         assertThrows(DuplicatePatientIDException.class, () -> manager.addPatient(duplicate));
@@ -71,12 +68,12 @@ class ManagementSystemTest {
 
     @Test
     void addPatient_validInput_expectPatientAddedAndSaved()
-            throws DuplicatePatientIDException, UnloadedStorageException, IOException {
+            throws DuplicatePatientIDException, UnloadedStorageException, IOException, InvalidInputFormatException {
         List<Patient> emptyListPatient = new ArrayList<>();
         List<Appointment> emptyListAppoint = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(emptyListPatient, emptyListAppoint);
 
-        Patient patient = new Patient("S1234567A", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>());
         manager.addPatient(patient);
 
@@ -91,9 +88,9 @@ class ManagementSystemTest {
     }
 
     @Test
-    void deletePatient_existingPatient_patientDeleted() throws UnloadedStorageException {
+    void deletePatient_existingPatient_patientDeleted() throws UnloadedStorageException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
-        Patient patient = new Patient("S1234567A", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>());
         patients.add(patient);
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
@@ -107,9 +104,9 @@ class ManagementSystemTest {
     }
 
     @Test
-    void deletePatient_nonExistentPatient_patientNotFound() throws UnloadedStorageException {
+    void deletePatient_nonExistentPatient_patientNotFound() throws UnloadedStorageException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
-        Patient patient = new Patient("S1234567A", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>());
         patients.add(patient);
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
@@ -132,9 +129,9 @@ class ManagementSystemTest {
     }
 
     @Test
-    void viewPatient_validNric_patientFound() {
+    void viewPatient_validNric_patientFound() throws InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient("S1234567A", "John Doe", "1990-01-01",
+        patients.add(new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>()));
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
@@ -146,9 +143,9 @@ class ManagementSystemTest {
     }
 
     @Test
-    void viewPatient_invalidNric_patientNotFound() {
+    void viewPatient_invalidNric_patientNotFound() throws InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient("S1234567A", "John Doe", "1990-01-01",
+        patients.add(new Patient("S1234567A", "John Doe", "01-01-1990",
                 "M", "123 Main St", "81234567", new ArrayList<>()));
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
@@ -169,13 +166,13 @@ class ManagementSystemTest {
 
     @Test
     void addAppointment_validInput_expectAppointmentAdded() throws UnloadedStorageException, PatientNotFoundException,
-            AppointmentClashException {
+            AppointmentClashException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
         LocalDateTime appointmentTime = LocalDateTime.parse("2025-03-20 1900", DATE_TIME_FORMAT);
 
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+        Patient patient = new Patient("S1234567D", "Billy", "01-10-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
         Appointment appointment = new Appointment("S1234567D", appointmentTime, "Medical Checkup");
@@ -191,14 +188,14 @@ class ManagementSystemTest {
 
     @Test
     void addAppointment_clashedAppointments_expectException() throws UnloadedStorageException, PatientNotFoundException,
-            AppointmentClashException {
+            AppointmentClashException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
         LocalDateTime appointmentTime1 = LocalDateTime.parse("2025-03-20 1900", DATE_TIME_FORMAT);
         LocalDateTime appointmentTime2 = LocalDateTime.parse("2025-03-20 1950", DATE_TIME_FORMAT);
 
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+        Patient patient = new Patient("S1234567D", "Billy", "01-10-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
         Appointment appointment1 = new Appointment("S1234567D", appointmentTime1, "Medical Checkup");
@@ -210,13 +207,13 @@ class ManagementSystemTest {
 
     @Test
     void deleteAppointment_validInput_expectAppointmentDeleted() throws UnloadedStorageException,
-            PatientNotFoundException, AppointmentClashException {
+            PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
         LocalDateTime appointmentTime = LocalDateTime.parse("2025-03-20 1900", DATE_TIME_FORMAT);
 
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+        Patient patient = new Patient("S1234567D", "Billy", "10-01-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
         Appointment appointment = new Appointment("S1234567D", appointmentTime, "Medical Checkup");
@@ -232,13 +229,13 @@ class ManagementSystemTest {
 
     @Test
     void deleteAppointment_lowerCaseInput_expectAppointmentDeleted() throws UnloadedStorageException,
-            PatientNotFoundException, AppointmentClashException {
+            PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
         LocalDateTime appointmentTime = LocalDateTime.parse("2025-03-30 2200", DATE_TIME_FORMAT);
 
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+        Patient patient = new Patient("S1234567D", "Billy", "10-01-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
         Appointment appointment = new Appointment("S1234567D", appointmentTime, "Medical Checkup");
@@ -254,13 +251,13 @@ class ManagementSystemTest {
 
     @Test
     void deleteAppointment_nonExistentId_expectNullReturned() throws UnloadedStorageException,
-            PatientNotFoundException, AppointmentClashException {
+            PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
         LocalDateTime appointmentTime = LocalDateTime.parse("2025-03-25 2100", DATE_TIME_FORMAT);
 
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+        Patient patient = new Patient("S1234567D", "Billy", "10-01-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
         Appointment appointment = new Appointment("S1234567D", appointmentTime, "Medical Checkup");
@@ -326,10 +323,10 @@ class ManagementSystemTest {
     //@@author dylancmznus
     @Test
     void markAppointment_validInput_expectAppointmentMarked() throws DuplicatePatientIDException,
-            UnloadedStorageException, PatientNotFoundException, AppointmentClashException {
+            UnloadedStorageException, PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
         ManagementSystem manager = new ManagementSystem(new ArrayList<>(), new ArrayList<>());
 
-        Patient patient = new Patient("S9876543Z", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S9876543Z", "John Doe", "01-01-1990",
                 "M", "123 Street", "12345678", new ArrayList<>());
         manager.addPatient(patient);
 
@@ -345,10 +342,10 @@ class ManagementSystemTest {
     //@@author dylancmznus
     @Test
     void unmarkAppointment_validInput_expectAppointmentUnmarked() throws DuplicatePatientIDException,
-            UnloadedStorageException, PatientNotFoundException, AppointmentClashException {
+            UnloadedStorageException, PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
         ManagementSystem manager = new ManagementSystem(new ArrayList<>(), new ArrayList<>());
 
-        Patient patient = new Patient("S8765432Y", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S8765432Y", "John Doe", "01-01-1990",
                 "M", "123 Street", "12345678", new ArrayList<>());
         manager.addPatient(patient);
 
@@ -365,10 +362,10 @@ class ManagementSystemTest {
     //@@author dylancmznus
     @Test
     void findAppointment_existingAppointment_expectAppointmentFound() throws DuplicatePatientIDException,
-            UnloadedStorageException, PatientNotFoundException, AppointmentClashException {
+            UnloadedStorageException, PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
         ManagementSystem manager = new ManagementSystem(new ArrayList<>(), new ArrayList<>());
 
-        Patient patient = new Patient("S7654321X", "John Doe", "1990-01-01",
+        Patient patient = new Patient("S7654321X", "John Doe", "01-01-1990",
                 "M", "123 Street", "12345678", new ArrayList<>());
         manager.addPatient(patient);
 
@@ -398,13 +395,13 @@ class ManagementSystemTest {
     //@@author jyukuan
     @Test
     void storeMedicalHistory_storeMedHistoryOnNewPatient_expectOneNewPatientWithMedHistory()
-            throws UnloadedStorageException, PatientNotFoundException {
+            throws UnloadedStorageException, PatientNotFoundException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem mhm = new ManagementSystem(patients, new ArrayList<>());
 
         LocalDateTime appointmentTime = LocalDateTime.parse("2025-03-20 1900", DATE_TIME_FORMAT);
 
-        Patient patient = new Patient("S1234567A", "John Doe", "1990-10-01",
+        Patient patient = new Patient("S1234567A", "John Doe", "10-01-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
 
@@ -423,12 +420,12 @@ class ManagementSystemTest {
     }
 
     @Test
-    void editPatientHistory_oldEntryNotFound_expectNoChange() throws UnloadedStorageException {
+    void editPatientHistory_oldEntryNotFound_expectNoChange() throws UnloadedStorageException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
 
         List<String> history = new ArrayList<>(List.of("Cold", "Migraine"));
-        Patient patient = new Patient("F8888888Q", "Ellen", "1970-12-12", "F", "99 Peace Ave", "85556666", history);
+        Patient patient = new Patient("F8888888Q", "Ellen", "12-12-1970", "F", "99 Peace Ave", "85556666", history);
         patients.add(patient);
 
         manager.editPatientHistory("F8888888Q", "Cancer", "Diabetes");
@@ -442,11 +439,11 @@ class ManagementSystemTest {
     }
 
     @Test
-    void editPatientHistory_validHistory_expectUpdated() throws UnloadedStorageException {
+    void editPatientHistory_validHistory_expectUpdated() throws UnloadedStorageException, InvalidInputFormatException {
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
         List<String> history = new ArrayList<>(List.of("High BP", "Migraine"));
-        Patient patient = new Patient("F1234567X", "Carol", "1975-03-15", "F", "Blk 999", "83334444", history);
+        Patient patient = new Patient("F1234567X", "Carol", "15-03-1975", "F", "Blk 999", "83334444", history);
         patients.add(patient);
 
         manager.editPatientHistory("F1234567X", "High BP", "Hypertension");
@@ -457,12 +454,12 @@ class ManagementSystemTest {
     }
 
     @Test
-    void editPatientHistory_emptyNewHistory_expectAssertionError() {
+    void editPatientHistory_emptyNewHistory_expectAssertionError() throws InvalidInputFormatException {
         // Setup
         List<Patient> patients = new ArrayList<>();
         ManagementSystem manager = new ManagementSystem(patients, new ArrayList<>());
         List<String> history = new ArrayList<>(List.of("Headache"));
-        Patient patient = new Patient("T7654321B", "Sarah", "1992-03-03",
+        Patient patient = new Patient("T7654321B", "Sarah", "03-03-1992",
                 "F", "88 Health Ave", "81231234", history);
         patients.add(patient);
 

@@ -1,9 +1,6 @@
 package command;
 
-import exception.AppointmentClashException;
-import exception.DuplicatePatientIDException;
-import exception.PatientNotFoundException;
-import exception.UnloadedStorageException;
+import exception.*;
 import manager.Appointment;
 import manager.ManagementSystem;
 import manager.Patient;
@@ -40,8 +37,8 @@ class DeleteAppointmentCommandTest {
 
     @Test
     void execute_validNric_expectAppointmentDeleted() throws DuplicatePatientIDException, UnloadedStorageException,
-            PatientNotFoundException, AppointmentClashException {
-        Patient patient = new Patient("S1234567D", "Billy", "1990-10-01",
+            PatientNotFoundException, AppointmentClashException, InvalidInputFormatException {
+        Patient patient = new Patient("S1234567D", "Billy", "01-10-1990",
                 "M", "124 High St", "81234567", new ArrayList<>());
         new AddPatientCommand(patient).execute(manager, ui);
 

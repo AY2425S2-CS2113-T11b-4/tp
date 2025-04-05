@@ -1,13 +1,13 @@
 package manager;
 
-import exception.AppointmentClashException;
-import exception.DuplicatePatientIDException;
-import exception.PatientNotFoundException;
-import exception.UnloadedStorageException;
+import exception.*;
 import miscellaneous.Ui;
 import storage.Storage;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -94,7 +94,7 @@ public class ManagementSystem {
 
     //@@author jyukuan
     public void editPatient(String nric, String newName, String newDob, String newGender, String newAddress,
-                            String newPhone) throws UnloadedStorageException, PatientNotFoundException {
+                            String newPhone) throws UnloadedStorageException, PatientNotFoundException, InvalidInputFormatException {
 
         assert nric != null && !nric.isBlank() : "NRIC must not be null or blank";
         assert patients != null : "Patient list cannot be null";
@@ -107,8 +107,18 @@ public class ManagementSystem {
             patient.setName(newName);
         }
         if (newDob != null && !newDob.isBlank()) {
-            patient.setDob(newDob);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate parsedDob = LocalDate.parse(newDob, formatter);
+                if (parsedDob.isAfter(LocalDate.now())) {
+                    throw new InvalidInputFormatException("Date of birth must be before today.");
+                }
+                patient.setDob(parsedDob);
+            } catch (DateTimeParseException e) {
+                throw new InvalidInputFormatException("Invalid date format. Use dd-MM-yyyy.");
+            }
         }
+
         if (newGender != null && !newGender.isBlank()) {
             patient.setGender(newGender);
         }

@@ -1,9 +1,6 @@
 package command;
 
-import exception.AppointmentClashException;
-import exception.DuplicatePatientIDException;
-import exception.PatientNotFoundException;
-import exception.UnloadedStorageException;
+import exception.*;
 import manager.Appointment;
 import manager.ManagementSystem;
 import manager.Patient;
@@ -35,17 +32,17 @@ class SortAppointmentCommandTest {
 
     @BeforeEach
     void setUp() throws UnloadedStorageException, DuplicatePatientIDException, PatientNotFoundException,
-            AppointmentClashException {
+            AppointmentClashException, InvalidInputFormatException {
         storage = new Storage(tempDir.toString());
         ui = new Ui();
         manager = new ManagementSystem(storage.loadPatients(), storage.loadAppointments(manager));
 
         List<Patient> patients = List.of(
-                new Patient("S1234567D", "Billy", "1990-10-01",
+                new Patient("S1234567D", "Billy", "01-10-1990",
                         "M", "124 High St", "81234567", new ArrayList<>()),
-                new Patient("S2345678D", "James" , "1980-12-31",
+                new Patient("S2345678D", "James" , "31-12-1980",
                         "M", "133 Main St", "81229312", new ArrayList<>()),
-                new Patient("S3456789D", "William" , "1970-08-31",
+                new Patient("S3456789D", "William" , "31-08-1970",
                         "M", "17 Cornelia St", "81009214", new ArrayList<>())
         );
         manager.addPatient(patients.get(0));
