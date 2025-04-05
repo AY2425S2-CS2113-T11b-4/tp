@@ -1,8 +1,0 @@
-S9876543B-1|S9876543B|2025-04-01 16:09|High blood sugar,Fatigue|Metformin,Blood pressure pills|Take with meals
-S9876543B-2|S9876543B|2025-04-01 16:30|High blood sugar,Fatigue|Metformin,Blood pressure pills|Take with meals
-S9876543B-3|S9876543B|2025-04-01 16:51|High blood sugar,Fatigue|Metformin,Blood pressure pills|Take with meals
-S9876543B-4|S9876543B|2025-04-01 16:51|High blood sugar,Fatigue|Metformin,Blood pressure pills|Take with meals
-S9876543B-5|S9876543B|2025-04-01 16:53|Headache,Dizziness|Paracetamol,Vitamin B12|Drink plenty of water
-S9876543B-6|S9876543B|2025-04-01 16:54|Headache,Dizziness|Paracetamol,Vitamin B12|Drink plenty of water
-S9876543B-7|S9876543B|2025-04-01 16:56|Joint pain,Inflammation|Ibuprofen,Calcium supplements|Take after food and avoid strenuous activity
-S9876543B-8|S9876543B|2025-04-01 17:01|Joint pain,Inflammation|Ibuprofen,Calcium supplements|Take after food and avoid strenuous activity

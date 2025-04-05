@@ -49,7 +49,10 @@ ClinicEase is an application designed to assist doctors in managing patient reco
 
 ---
 ## Features 
+Here are some feature that the product provides:
 
+* `add-patient`: adds a patient to the system
+* ``
 > [!NOTE]
 > - Words in `UPPER_CASE` represent parameters that must be provided by the user. <br>
     e.g. in `view-patient NRIC`, `NRIC` is a parameter which can be used as `view-patient S1234567D`.
@@ -66,12 +69,14 @@ ClinicEase is an application designed to assist doctors in managing patient reco
 > - Command words are **case-insensitive**. <br>
     e.g. `liST-paTIEnt` will be interpreted as `list-patient`.
 
+<br>
+
 ### Adding a new patient : `add-patient`
 Adds a new patient to the system with their credentials.
 
 Format: `add-patient n/NAME ic/NRIC dob/BIRTHDATE g/GENDER p/PHONE a/ADDRESS h/MEDICAL_HISTORY`
 
-* The `NRIC` must be unique to the existing ones in the system
+* The `NRIC` must be unique to the existing ones in the system.
 
 Example of usage: 
 
@@ -82,6 +87,25 @@ Expected output:
 <pre>---------------------------------------------------------------------------------------------------- 
 Patient added successfully: John Doe 
 ---------------------------------------------------------------------------------------------------- </pre>
+<br>
+
+### Deleting a patient : `delete-patient`
+Deletes an existing patient in the system.
+
+Format: `delete-patient NRIC`
+
+* The `NRIC` must be of a patient existing in the system.
+
+Example of usage:
+
+`delete-patient S1234567D`
+
+Expected output:
+
+<pre>---------------------------------------------------------------------------------------------------- 
+Patient deleted successfully: John Doe
+---------------------------------------------------------------------------------------------------- </pre>
+<br>
 
 ### Viewing patient details: `view-patient`
 Displays the details of a specific patient.
@@ -106,6 +130,7 @@ Contact: 98765432
 Medical History: Diabetes, Hypertension
 Appointments: None
 ----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Listing all patients: `list-patient`
 Displays a list of all registered patients in the system with details provided.
@@ -140,6 +165,7 @@ Expected Output:
    - Cough
    Appointments: None
 ----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Editing a specified patient: `edit-patient`
 Displays a list of all registered patients in the system with details provided.
@@ -159,6 +185,7 @@ Expected output:
 ----------------------------------------------------------------------------------------------------.
 Edit-patient command executed.
 ---------------------------------------------------------------------------------------------------- </pre>
+<br>
 
 ---
 
@@ -176,6 +203,14 @@ Example of usage:
 
 `add-appointment ic/S1234567D dt/2025-03-31 t/1200 dsc/Annual checkup`
 
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Appointment added for NRIC: S1234567D on 2025-03-31 at 12:00 PM.
+Now you have 1 appointment(s) in the list.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
 ### Deleting an appointment: `delete-appointment`
 Deletes a specified appointment from the appointment list.
 
@@ -187,6 +222,14 @@ Format: `delete-appointment APPOINTMENT_ID`
 Example of usage:
 
 `delete-appointment A100`
+
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Appointment A100 is deleted successfully.
+Now you have 0 appointment(s) in the list.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Sorting appointments: `sort-appointment`
 Sorts the appointments in the appointment list.
@@ -201,6 +244,14 @@ Example of usage:
 * `sort-appointment byDate`
 * `sort-appointment byId`
 
+Expected output: 
+
+<pre>-------------------------------------------Appointments---------------------------------------------
+1. [A101][ ] - S1234567D - 2025-03-31 12:00 PM - Annual checkup
+2. [A102][ ] - S1234567D - 2025-04-30 2:00 PM - Annual checkup
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
 ### Marking an appointment as done: `mark-appointment`
 Marks a specified appointment as done.
 
@@ -213,6 +264,13 @@ Example of usage:
 
 `mark-appointment A100`
 
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Appointment A101 is marked successfully.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
 ### Unmarking a completed appointment: `unmark-appointment`
 Unmarks a completed appointment, setting it back to pending.
 
@@ -223,6 +281,13 @@ Format: `unmark-appointment APPOINTMENT_ID`
 Example of usage:
 
 `unmark-appointment A100`
+
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Appointment A101 is unmarked successfully.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Finding a patient's appointments: `find-appointment`
 Searches for appointments based on the patient's NRIC.
@@ -236,10 +301,16 @@ Example of usage:
 
 `find-appointment S1234567D`
 
----
-### Managing Prescriptions
+Expected output:
 
-#### Adding a prescription: `add-prescription`
+<pre>----------------------------------------------------------------------------------------------------
+ Appointments found for NRIC: S1234567D
+ - [A101][ ] - S1234567D - 2025-03-31 12:00 PM - Annual checkup
+ - [A102][ ] - S1234567D - 2025-04-30 2:00 PM - Annual checkup
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
+### Adding a prescription: `add-prescription`
 
 Adds a new prescription for a patient.
 
@@ -250,45 +321,121 @@ Format: `add-prescription ic/PATIENT_ID s/SYMPTOMS m/MEDICINES [nt/NOTES]`
 * `MEDICINES` is a comma-separated list of prescribed medications
 * `NOTES` is optional and can contain special instructions
 
-Example:
-* `add-prescription ic/S9876543B s/Fever, Cough m/Paracetamol, Cough syrup nt/Take after meals`
+Example of usage:
 
-#### Viewing all prescriptions: `view-all-prescriptions`
+`add-prescription ic/S9876543B s/Fever, Cough m/Paracetamol, Cough syrup nt/Take after meals`
+
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Successfully added prescription:
+Prescription [S1234567D-1] (2025-04-05 18:52)
+Patient ID: S1234567D
+Symptoms: 
+- Fever
+- Cough
+Medicines: 
+- Paracetamol
+- Cough syrup
+Notes: Take after meals
+
+Prescription has been generated.
+View the prescription for the patient with ID: S1234567D
+and prescription ID: S1234567D-1
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
+### Viewing all prescriptions: `view-all-prescriptions`
 
 Shows all prescriptions for a specific patient.
 
-Format: `view-all-prescriptions PATIENT_ID`
+Format: `view-all-prescriptions NRIC`
 
-Example:
-* `view-all-prescriptions S9876543B`
+`NRIC` must be an existing patient in the system
 
-#### Viewing specific prescription: `view-prescription`
+Example of Usage:
+
+`view-all-prescriptions S9876543B`
+
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Prescriptions for patient John Doe (S1234567D):
+
+Prescription ID: S1234567D-1
+Date: 2025-04-05 18:52
+Symptoms:
+- Fever
+- Cough
+Medicines:
+- Paracetamol
+- Cough syrup
+Notes: Take after meals
+
+Prescription ID: S1234567D-2
+Date: 2025-04-05 19:08
+Symptoms:
+- Sore throat
+Medicines:
+- Cough pills
+Notes: Take 3 times a day
+
+Total prescriptions: 2
+Use 'view-prescription PRESCRIPTION_ID' to view details and generate HTML.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
+### Viewing specific prescription: `view-prescription`
 
 Views details of a specific prescription and generates a printable HTML version.
 
 Format: `view-prescription PRESCRIPTION_ID`
 
+* `PRESCRIPTION_ID` must be existent in the system
 * The HTML file will be generated in the data/prescriptions folder
 * Open the HTML file in a web browser to view and print
 
-Example:
-* `view-prescription S9876543B-1`
+Example of usage:
 
----
+`view-prescription S9876543B-1`
+
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Prescription details:
+Prescription [S1234567D-1] (2025-04-05 18:52)
+Patient ID: S1234567D
+Symptoms: 
+- Fever
+- Cough
+Medicines: 
+- Paracetamol
+- Cough syrup
+Notes: Take after meals
+
+Prescription HTML file generated at: C:\Users\Judha Hoka Wishika\Downloads\tp_personal\data\prescriptions\prescription_S1234567D_1.html
+Open this file in a web browser to view and print the prescription.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
+
 ### Adding Medical History: `store-history`
 Adds one or more entries to a patient's medical history.
 
-**Format:**
-`store-history n/NAME ic/NRIC h/HISTORY_ENTRY1, HISTORY_ENTRY2, ...`
+Format: `store-history n/NAME ic/NRIC h/HISTORY_ENTRY1, HISTORY_ENTRY2, ...`
 
-* The `NRIC` must be of a patient existing in the system. <br>
+* The `NRIC` must be of a patient existing in the system.
+* Use commas to separate multiple history entries.
 
-*Tip: Use commas to separate multiple history entries.*
+Examples of usage:
 
-**Examples:**
-- `store-history n/Alex Tan ic/S1234567A h/Diabetes, Hypertension`
-- `store-history n/Lim Mei ic/T7654321Z h/Asthma`
+`store-history n/Alex Tan ic/S1234567A h/Coughing, Swelling on left leg`
 
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Medical history added for John Doe (NRIC: S1234567D).
+----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Viewing Medical History: `view-history`
 Displays medical history of a patient by NRIC or name.
@@ -301,29 +448,46 @@ Displays medical history of a patient by NRIC or name.
 - `view-history S1234567A`
 - `view-history Alex Tan`
 
+Expected output:
+
+<pre>----------------------------------------------------------------------------------------------------
+Medical History for John Doe (NRIC: S1234567D):
+- Diabetes
+- Hypertension`
+- Coughing
+- Swelling on left leg
+----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Editing Medical History: `edit-history`
 Modifies a specific entry in a patient’s medical history.
 
-**Format:**
-`edit-history ic/NRIC old/OLD_HISTORY_ENTRY new/NEW_HISTORY_ENTRY`
+Format: `edit-history ic/NRIC old/OLD_HISTORY_ENTRY new/NEW_HISTORY_ENTRY`
 
 - NRIC must match an existing patient record.
 - All history entries are stored as simple strings.
 - Viewing by name will display all patients with the given name.
 - Editing only replaces the **first matched** old entry.
 
-**Example:**
+Example of usage:
+
 `edit-history ic/S1234567A old/Diabetes new/Type 2 Diabetes`
 
----
+Expected output:
+
+<pre>
+Replaced old history "Diabetes" with "Type 2 Diabetes".
+----------------------------------------------------------------------------------------------------
+Edit-history command executed.
+----------------------------------------------------------------------------------------------------</pre>
+<br>
 
 ### Exiting the program: `bye`
 Exits the program.
 
-**Format:** `bye`
+Format: `bye`
+<br>
 
----
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -334,8 +498,9 @@ Exits the program.
 
 ## Known Issues
 1. The parameter `NRIC` can take in any String format.
+2. The parameter `BIRTHDATE` doesn't have to be a valid past date.
+3. The parameter `PHONE` 
 
----
 ## Command Summary
 
 | Action                     | Format, Examples                                                                                                                                                                               |
@@ -358,7 +523,4 @@ Exits the program.
 | Add prescription           | `add-prescription ic/PATIENT_ID s/SYMPTOMS m/MEDICINES [nt/NOTES]`                                                                                                                             |
 | View all prescriptions     | `view-all-prescriptions PATIENT_ID`                                                                                                                                                            |
 | View specific prescription | `view-prescription PRESCRIPTION_ID`                                                                                                                                                            |
-
-
-
 
