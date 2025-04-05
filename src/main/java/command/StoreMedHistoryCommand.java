@@ -6,18 +6,16 @@ import manager.ManagementSystem;
 import miscellaneous.Ui;
 
 public class StoreMedHistoryCommand extends Command {
-    private String name;
     private String nric;
     private String medHistory;
 
     public StoreMedHistoryCommand(String[] details) {
-        this.name = details[0];
-        this.nric = details[1];
-        this.medHistory = details[2];
+        this.nric = details[0];
+        this.medHistory = details[1];
     }
 
     @Override
     public void execute(ManagementSystem manager, Ui ui) throws UnloadedStorageException, PatientNotFoundException {
-        manager.storeMedicalHistory(name, nric, medHistory);
+        manager.storeMedicalHistory(nric, medHistory);
     }
 }

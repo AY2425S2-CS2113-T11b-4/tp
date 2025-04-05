@@ -175,18 +175,17 @@ public class Parser {
         String temp = input.replaceFirst("(?i)store-history\\s*", "");
 
         // Extract n/NAME, ic/NRIC, and h/MEDICAL_HISTORY from the remaining string
-        String name = extractValue(temp, "n/");
         String nric = extractValue(temp, "ic/");
         String medHistory = extractValue(temp, "h/");
 
         // If any part is missing, return null to indicate a parse failure
-        if (name == null || nric == null || medHistory == null) {
+        if (nric == null || medHistory == null) {
             throw new InvalidInputFormatException("Invalid format. " +
                     "Please use: store-history n/NAME ic/NRIC h/MEDICAL_HISTORY");
         }
 
         // Return the trimmed values as an array
-        return new String[]{name.trim(), nric.trim(), medHistory.trim()};
+        return new String[]{nric.trim(), medHistory.trim()};
     }
 
     public static Appointment parseAddAppointment(String input) throws InvalidInputFormatException {

@@ -122,19 +122,11 @@ public class ManagementSystem {
         System.out.println("Patient with NRIC " + nric + " updated successfully.");
     }
 
-    public void storeMedicalHistory(String name, String nric, String medHistory) throws PatientNotFoundException,
-            UnloadedStorageException {
+    public void storeMedicalHistory(String nric, String medHistory) throws PatientNotFoundException, UnloadedStorageException {
         Patient existingPatient = findPatientByNric(nric);
 
-        assert name != null && !name.isBlank() : "Name must not be null or blank";
-        assert nric != null && !nric.isBlank() : "NRIC must not be null or blank";
-        assert medHistory != null && !medHistory.isBlank() : "Medical history must not be null or blank";
-
-
         if (existingPatient == null) {
-            throw new PatientNotFoundException("Patient with NRIC not found. Patient's history can not be added");
-        } else {
-            Ui.showLine();
+            throw new PatientNotFoundException("Patient with NRIC " + nric + " not found. Cannot add history.");
         }
 
         String[] historyEntries = medHistory.split(",\\s*");
@@ -143,10 +135,13 @@ public class ManagementSystem {
                 existingPatient.getMedicalHistory().add(entry.trim());
             }
         }
+
         Storage.savePatients(patients);
-        System.out.println("Medical history added for " + name + " (NRIC: " + nric + ").");
+        Ui.showLine();
+        System.out.println("Medical history added for " + existingPatient.getName() + " (NRIC: " + nric + ").");
         Ui.showLine();
     }
+
 
     public void viewMedicalHistoryByNric(String nric) throws PatientNotFoundException {
         Patient foundPatients = findPatientByNric(nric.trim());

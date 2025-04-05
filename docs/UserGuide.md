@@ -442,11 +442,12 @@ Medical history added for John Doe (NRIC: S1234567D).
 ### Viewing Medical History: `view-history`
 Displays medical history of a patient by NRIC or name.
 
-Format: `view-history ic/NRIC` or `view-history NAME`
+**Format:**
+`view-history NRIC` or
+`view-history NAME`
 
-Example of usage:
-
-- `view-history ic/S1234567A`
+**Examples:**
+- `view-history S1234567A`
 - `view-history Alex Tan`
 
 Expected output:

@@ -408,7 +408,7 @@ class ManagementSystemTest {
                 "M", "124 High St", "81234567", new ArrayList<>());
         patients.add(patient);
 
-        mhm.storeMedicalHistory("John Doe", "S1234567A", "Diabetes, Hypertension");
+        mhm.storeMedicalHistory("S1234567A", "Diabetes, Hypertension");
 
         assertEquals(1, patients.size(), "There should be one patient stored");
 
