@@ -136,6 +136,14 @@ public class Parser {
                 gender.trim(), address.trim(), phone.trim(), medHistory);
     }
 
+    /**
+     * Parses input for the delete-patient command.
+     * Extracts the NRIC of the patient to be deleted.
+     *
+     * @param input The raw user input string for delete-patient command
+     * @return The NRIC of the patient to delete
+     * @throws InvalidInputFormatException If the input format is incorrect
+     */
     private static String parseDeletePatient(String input) throws InvalidInputFormatException {
         if (input.length() < 15) {
             throw new InvalidInputFormatException("Invalid command format. Use: delete-patient NRIC");
@@ -159,6 +167,14 @@ public class Parser {
         return nric;
     }
 
+    /**
+     * Parses input for the view-history command.
+     * Determines whether the search is by NRIC or name, and extracts the search value.
+     *
+     * @param input The raw user input string for view-history command
+     * @return String array containing [0]=type ("ic" or "n"), [1]=nameOrIc (the search value)
+     * @throws InvalidInputFormatException If the input format is incorrect or no search value is provided
+     */
     public static String[] parseViewHistory(String input) throws InvalidInputFormatException {
         // Remove the command prefix "view-history" (case-insensitive) and get the remaining string.
         String temp = input.replaceFirst("(?i)view-history\\s*", "");
@@ -192,6 +208,14 @@ public class Parser {
         return new String[]{type, nameOrIc};
     }
 
+    /**
+     * Parses input for the store-history command.
+     * Extracts NRIC and medical history text from the command string.
+     *
+     * @param input The raw user input string for store-history command
+     * @return String array containing [0]=nric, [1]=medHistory
+     * @throws InvalidInputFormatException If required parameters are missing or format is incorrect
+     */
     public static String[] parseStoreHistory(String input) throws InvalidInputFormatException {
         // Remove the command prefix "store-history" (case-insensitive)
         // and get the remaining string.
@@ -211,6 +235,16 @@ public class Parser {
         return new String[]{nric.trim(), medHistory.trim()};
     }
 
+    /**
+     * Parses input for the add-appointment command.
+     * Extracts patient NRIC, date, time, and description parameters.
+     * Validates input format and creates a new Appointment object.
+     *
+     * @param input The raw user input string for add-appointment command
+     * @return A new Appointment object with the parsed data
+     * @throws InvalidInputFormatException If required parameters are missing, format is incorrect,
+     *         or appointment date is in the past
+     */
     private static Appointment parseAddAppointment(String input) throws InvalidInputFormatException {
         String temp = input.replaceFirst("(?i)add-appointment\\s+", "");
         String nric = extractValue(temp, "ic/");
@@ -245,6 +279,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses input for the delete-appointment command.
+     * Extracts and validates the appointment ID from the command string.
+     *
+     * @param input The raw user input string for delete-appointment command
+     * @return The appointment ID to be deleted
+     * @throws InvalidInputFormatException If the input format is incorrect
+     */
     private static String parseDeleteAppointment(String input) throws InvalidInputFormatException {
         if (!input.matches("(?i)delete-appointment\\s+A\\d+")) {
             throw new InvalidInputFormatException("Invalid format! Please use: " +
@@ -255,6 +297,14 @@ public class Parser {
         return apptId;
     }
 
+    /**
+     * Parses input for the sort-appointment command.
+     * Determines whether to sort by date or ID based on the command parameter.
+     *
+     * @param input The raw user input string for sort-appointment command
+     * @return String indicating sort criteria ("date" or "id")
+     * @throws InvalidInputFormatException If the input format is incorrect
+     */
     private static String parseSortAppointment(String input) throws InvalidInputFormatException {
         String temp = input.replaceFirst("(?i)sort-appointment\\s*", "");
 
@@ -269,6 +319,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses input for the mark-appointment command.
+     * Extracts the appointment ID to be marked as completed.
+     *
+     * @param input The raw user input string for mark-appointment command
+     * @return The appointment ID to be marked
+     * @throws InvalidInputFormatException If the input format is incorrect
+     */
     private static String parseMarkAppointment(String input) throws InvalidInputFormatException {
         String apptId = input.replaceFirst("(?i)mark-appointment\\s*", "").trim();
         if (apptId.isEmpty()) {
@@ -277,6 +335,14 @@ public class Parser {
         return apptId;
     }
 
+    /**
+     * Parses input for the unmark-appointment command.
+     * Extracts the appointment ID to be unmarked (set as incomplete).
+     *
+     * @param input The raw user input string for unmark-appointment command
+     * @return The appointment ID to be unmarked
+     * @throws InvalidInputFormatException If the input format is incorrect
+     */
     private static String parseUnmarkAppointment(String input) throws InvalidInputFormatException {
         String apptId = input.replaceFirst("(?i)unmark-appointment\\s*", "").trim();
         if (apptId.isEmpty()) {
@@ -285,6 +351,14 @@ public class Parser {
         return apptId;
     }
 
+    /**
+     * Parses input for the find-appointment command.
+     * Extracts the patient NRIC to find associated appointments.
+     *
+     * @param input The raw user input string for find-appointment command
+     * @return The patient NRIC to search for appointments
+     * @throws InvalidInputFormatException If the input format is incorrect
+     */
     private static String parseFindAppointment(String input) throws InvalidInputFormatException {
         String patientId = input.replaceFirst("(?i)find-appointment\\s*", "").trim();
         if (patientId.isEmpty()) {
@@ -355,6 +429,14 @@ public class Parser {
         return detail.isEmpty() ? null : detail;
     }
 
+    /**
+     * Parses input for the edit-patient command.
+     * Extracts patient NRIC (required) and optional fields to be updated.
+     *
+     * @param input The raw user input string for edit-patient command
+     * @return String array containing [0]=nric, [1]=name, [2]=dob, [3]=gender, [4]=address, [5]=phone
+     * @throws InvalidInputFormatException If the NRIC is missing
+     */
     private static String[] parseEditPatient(String input) throws InvalidInputFormatException {
         String temp = input.replaceFirst("(?i)edit-patient\\s*", "");
         String nric = extractValue(temp, "ic/");
@@ -371,6 +453,14 @@ public class Parser {
         return new String[]{nric, name, dob, gender, address, phone};
     }
 
+    /**
+     * Parses input for the edit-history command.
+     * Extracts patient NRIC and the old and new history text entries.
+     *
+     * @param input The raw user input string for edit-history command
+     * @return String array containing [0]=nric, [1]=oldHistory, [2]=newHistory
+     * @throws InvalidInputFormatException If required parameters are missing
+     */
     private static String[] parseEditHistory(String input) throws InvalidInputFormatException {
         String temp = input.replaceFirst("(?i)edit-history\\s*", "");
 
