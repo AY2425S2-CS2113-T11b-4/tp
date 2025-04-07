@@ -1,8 +1,7 @@
 # Basudeb Chakraborty - Project Portfolio Page
 
 ## Overview
-
-ClinicEase is a desktop application designed for clinic management. It provides doctors with a command-line interface to manage patients, appointments, and prescriptions. The application enables doctors to track patient information, medical histories, schedule appointments, and create detailed prescriptions with HTML export capabilities.
+ClinicEase is a desktop app with a command-line interface for doctors to manage patients, appointments, and prescriptions. It allows tracking medical histories, scheduling, and exporting detailed prescriptions in HTML format.
 
 ## Summary of Contributions
 
@@ -49,12 +48,6 @@ I implemented the complete Prescription Management System, a key feature that en
     - Unit tests for all prescription-related classes
     - Integration tests for prescription management functionality
     - End-to-end testing of the prescription workflow
-    
-- **User Experience Enhancements**: Improved user experience through better error handling and guidance:
-    - Enhanced error messages for prescription commands to provide clearer guidance on correct syntax
-    - Fixed formatting issues in the Parser for view-all-prescriptions and view-prescription commands
-    - Ensured consistent error message format across the application
-    - Improved user feedback for common command entry mistakes
 
 ### Contributions to the User Guide
 
@@ -68,10 +61,7 @@ I implemented the complete Prescription Management System, a key feature that en
 
 - Added documentation for the core application structure
 - Added documentation for the appointment management system
-- Added documentation for the prescription management features, including:
-    - Use cases for adding, viewing, and generating prescriptions
-    - Manual testing instructions for prescription management
-    - User stories related to prescription functionality
+- Added documentation for the prescription management features, including Use cases for adding, viewing, and generating prescriptions, Manual testing instructions for prescription management, and User stories related to prescription functionality.
 
 ### Contributions to team-based tasks
 
@@ -94,30 +84,21 @@ I implemented the complete Prescription Management System, a key feature that en
 4. **Technical Documentation**
    - The detailed sequence and class diagrams help future developers understand the architecture and implementation of the prescription management feature.
 
-5. **Architecture Documentation Blueprint**
-   - Developed the initial architecture diagram blueprint that formed the foundation for the final design
-   - Established the key component relationships that guided the team's understanding of the system
-   - Documented component interactions with sequence diagrams
-   - Designed the  sequence diagram showing command execution flow
-   - Provided the interim architecture diagrams that guided subsequent improvements
-   - Collaborated with team members to evolve the architecture representation
+5. **Architecture Documentation Blueprint**  
+   - Created initial architecture diagram
+   - Created the sequence diagrams  
+   - Collaborated with the team to refine and evolve the architecture diagram 
 
 ### Issues Resolved
 
-During the development and maintenance phase, I identified and fixed several issues to improve the application:
+1. **Improved Command Guidance**  
+   - Enhanced error messages in `Parser.java` for `view-all-prescriptions` and `view-prescription` commands  
+   - Clearly indicated correct formats and ensured consistent error handling  
 
-1. **Enhanced Command Format Guidance**: 
-   - Improved error messages in the Parser.java file for the view-all-prescriptions and view-prescription commands
-   - Made error messages more instructive by clearly indicating the correct command format
-   - Ensured consistent error handling across different commands in the application
+2. **Better User Experience**  
+   - Fixed vague error messages for prescription commands  
+   - Provided clearer, more intuitive feedback  
 
-2. **User Experience Improvements**:
-   - Identified and fixed issues where users were receiving unhelpful error messages
-   - Created more intuitive feedback for prescription-related commands
-   - Enhanced overall user experience with clearer guidance on command syntax
-
-3. **Fixed Prescription Storage Limitation Issue**:
-   - Resolved critical bug where the system could not load prescription data beyond 5 entries
-   - Fixed "Index out of bounds" error that occurred when loading prescriptions
-   - Ensured the system can properly handle and save unlimited number of prescriptions
-   - Improved application stability by preventing data loss when storing multiple prescriptions
+3. **Prescription Storage Bug Fixed**  
+   - Resolved "Index out of bounds" error when loading over 5 prescriptions  
+   - Enabled support for unlimited entries and prevented data loss  
