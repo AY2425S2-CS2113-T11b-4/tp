@@ -6,7 +6,7 @@ ClinicEase is a desktop app with a command-line interface for doctors to manage 
 ## Summary of Contributions
 
 ### Code contributed
-[RepoSense Code Dashboard](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=basudeb2005)
+[RepoSense Code Dashboard](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=basudeb2005) : https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=basudeb2005 
 
 ### Enhancements implemented
 
