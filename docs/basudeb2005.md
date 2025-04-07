@@ -40,14 +40,9 @@ I implemented the complete Prescription Management System, a key feature that en
     - Organized sections for patient information, symptoms, medicines, and special instructions
     - Print functionality via a button in the HTML document
 
-- **Storage and Persistence**: Implemented storage functionality to save and retrieve prescriptions from file system:
-    - Custom serialization format for prescriptions
-    - Load and save operations for persistent storage
+- **Storage and Persistence**: Implemented storage functionality to save and retrieve prescriptions from the file system with a custom serialization format.
 
-- **Comprehensive Testing**: Created extensive test suite for the prescription subsystem:
-    - Unit tests for all prescription-related classes
-    - Integration tests for prescription management functionality
-    - End-to-end testing of the prescription workflow
+- **Comprehensive Testing**: Created an extensive test suite for the prescription subsystem: Unit tests for all prescription-related classes, Integration tests for prescription management functionality, End-to-end testing of the prescription workflow.
 
 ### Contributions to the User Guide
 
@@ -60,15 +55,12 @@ I implemented the complete Prescription Management System, a key feature that en
 ### Contributions to the Developer Guide
 
 - Added documentation for the core application structure
-- Added documentation for the appointment management system
 - Added documentation for the prescription management features, including Use cases for adding, viewing, and generating prescriptions, Manual testing instructions for prescription management, and User stories related to prescription functionality.
 
 ### Contributions to team-based tasks
 
 - Set up the initial application architecture that the team built upon
-- Integrated the prescription management subsystem with the existing patient management system
-- Ensured compatibility of prescription commands with the overall command parsing structure
-- Collaborated on refining the storage mechanisms to handle multiple data types
+- Integrated the prescription management subsystem with the existing patient management system  and ensured compatibility of prescription commands with the overall parsing structure
 
 ### Features I'm proud of
 
@@ -91,14 +83,10 @@ I implemented the complete Prescription Management System, a key feature that en
 
 ### Issues Resolved
 
-1. **Improved Command Guidance**  
-   - Enhanced error messages in `Parser.java` for `view-all-prescriptions` and `view-prescription` commands  
-   - Clearly indicated correct formats and ensured consistent error handling  
-
-2. **Better User Experience**  
+1. **Better User Experience**  
    - Fixed vague error messages for prescription commands  
    - Provided clearer, more intuitive feedback  
 
-3. **Prescription Storage Bug Fixed**  
+2. **Prescription Storage Bug Fixed**  
    - Resolved "Index out of bounds" error when loading over 5 prescriptions  
    - Enabled support for unlimited entries and prevented data loss  
