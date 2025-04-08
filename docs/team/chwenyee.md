@@ -29,65 +29,28 @@ and future-dated appointments (prevents past-date/time entries)
 Appointment, ExitCommand, HelpCommand, and Parser. 
 
 #### Features Implemented
-1. **add-appointment**: Adds a new appointment to the list of appointment.
-
-2. **delete-appointment**: Deletes a specified appointment from the appointment list.
-
-3. **sort-appointment**: Sorts the appointments in the appointment list and display the sorted list to the user. Sorting
-   can be performed by either `byDate` or `byId`.
-
-4. **help**: Simple command that outputs all available command inputs of the application. 
+- `add-appointment`: Adds a new appointment.
+- `delete-appointment`: Deletes a specified appointment.
+- `sort-appointment`: Sorts appointments by `byDate` or `byId`.
+- `help`: Lists all available commands.
 
 #### Contributions to the UG:
-
-**Sections:** 
-
-- **Table of Content**
-- **Quick Start**
-
-- **Features:**
-
-   - NOTE: Explains how to interpret command syntax, parameters, optional fields, input order, and case sensitivity.
-   - `help`
-   - `add-appointments`
-   - `delete-appointments`
-   - `sort-appointments`
-   - `bye`
-   
-   I wrote the description, command input formats, and examples of usage for these features, providing the important things to note for 
-parameters such as `NRIC`, `DATE`, `TIME`, and `APPOINTMENT_ID`.
-
-- **FAQ**: I wrote the FAQ section, covering how data is saved, how to transfer data, and the risks of editing data files directly.
-
-- **Known Issues**: I authored the command-parameter parsing issue, explaining the cause, impact, and current resolution of the problem when users omit spaces between command words and parameters.
-
-- **Command Summary**: I wrote the Command Summary table, ensuring each command's format and example of usage are clearly presented for users' quick reference.
+- Wrote sections: Table of Contents, Quick Start, Features (`help`, `add-appointment`, `delete-appointment`, `sort-appointment`, `bye`).
+- Added "NOTES" on feature's command syntax, parameters (`NRIC`, `DATE`, `TIME`, `APPOINTMENT_ID`).
+- Wrote FAQ: data saving, data transfer, risks of editing files.
+- Documented Known Issue: space omission in command parsing.
+- Wrote Command Summary table with formats & examples of usage.
 
 #### Contributions to the DG:
-
-**Sections:**
-- **Table of content**
-
-- **Design: Parser component**
-  - Documented the `Parser` class and its interaction with `Command` subclasses
-  - Created:
-    - Class diagram `parserClassDiagram.png`, showing the structure
-    - Sequence diagram `parserSequence.png`, showing the parsing flow
-  - Explained the parsing workflow in `Parser` 
-
-
-- **Add and Delete Appointment feature:**
-
-  - Documented the implementation details of the `add-appointment` and `delete-appointment` features, 
-    including step-by-step usage scenarios to clarify system behavior.
-  - Created sequence diagrams to visualize how the command interacts with the `Parser`, `ManagementSystem`, and `Storage` components.
-    - `addAppointmentSequence.png` for `add-appointment`
-    - `deleteAppointmentSequence.png` for `delete-appointment`
-  - Explained the reason they are implemented this way
-  - Explained the alternatives considered and justified their rejection
-
+- Documented `Parser` component design:
+  - Wrote explanation of parsing workflow.
+  - Created diagrams: `parserClassDiagram.png`, `parserSequence.png`.
+- Add & Delete Appointment Features:
+  - Documented implementation details & usage scenarios.
+  - Diagrams: `addAppointmentSequence.png`, `deleteAppointmentSequence.png`.
+  - Explained rationale & rejected alternatives.
+- Other sections: Table of Contents, Non-functional Requirements, Glossary.
 - Non-functional requirements
-
 - Glossary 
 
 #### Contributions to team-based tasks:
